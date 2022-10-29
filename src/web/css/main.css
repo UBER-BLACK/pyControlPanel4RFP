@@ -1,0 +1,59 @@
+body {
+    background: hsl(253, 45%, 10%);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: aliceblue;
+    font-family: Ubuntu;   
+    font-weight: 400;
+    font-size: 20px; 
+    line-height: 20px;
+    font-style: normal;
+    font-variant: normal;
+}
+h1 {
+    font-size: 80px; 
+    line-height: 80px;
+}
+h2 {
+    font-size: 70px; 
+    line-height: 70px;
+}
+h3 {
+    font-size: 60px; 
+    line-height: 60px;
+}
+h4 {
+    font-size: 50px; 
+    line-height: 50px;
+}
+h5 {
+    font-size: 40px; 
+    line-height: 40px;
+}
+h6 {
+    font-size: 30px; 
+    line-height: 30px;
+}
+text {
+    font-size: 20px; 
+    line-height: 20px;
+}
+b {
+    font-weight: 0;
+}
+i {
+    font-style: italic;
+}
+n {
+    font-style: normal;
+    font-variant: normal;
+}
+m {
+    font-variant: small-caps;
+}

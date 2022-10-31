@@ -3,4 +3,4 @@
 ```bash
 sudo apt install python3
 ```
-#### 2. Download ![Setup.py]() and run it
+#### 2. Download ![setup.py](dist/online-installer/setup.py) and run it

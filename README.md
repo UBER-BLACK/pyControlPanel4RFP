@@ -1,4 +1,3 @@
-# pyControlPanel4RFP
 ## INSTALLATION (UBUNTU)
 #### 1. download python (if it is installed, skip it)
 ```bash

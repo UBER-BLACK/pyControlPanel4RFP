@@ -4,6 +4,7 @@
 sudo apt update
 sudo apt full-upgrade
 sudo apt install python3
+sudo apt install git
 sudo pip install keyboard
 sudo pip install pyserial
 ```

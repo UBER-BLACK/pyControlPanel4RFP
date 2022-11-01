@@ -8,5 +8,5 @@ sudo pip install serial
 sudo pip install keyboard
 sudo pip install serial
 sudo pip install pyserial
-
+sudo pip install pybluez
 ```

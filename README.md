@@ -7,5 +7,8 @@ sudo apt install python3
 sudo apt install git
 sudo pip install keyboard
 sudo pip install pyserial
+sudo mkdir ~/pyControlPanel4RFP/
+sudo cd ~/pyControlPanel4RFP/
+git clone https://github.com/UBER-BLACK/pyControlPanel4RFP/
 ```
 ####

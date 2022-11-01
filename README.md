@@ -4,9 +4,7 @@
 sudo apt update
 sudo apt full-upgrade
 sudo apt install python3
-sudo pip install serial
 sudo pip install keyboard
-sudo pip install serial
 sudo pip install pyserial
-sudo pip install pybluez
 ```
+####

@@ -9,6 +9,6 @@ sudo pip install keyboard
 sudo pip install pyserial
 mkdir ~/pyControlPanel4RFP/
 cd ~/pyControlPanel4RFP/
-git clone https://github.com/UBER-BLACK/pyControlPanel4RFP
+git clone https://github.com/UBER-BLACK/pyControlPanel4RFP/tree/home/src
 ```
 ####

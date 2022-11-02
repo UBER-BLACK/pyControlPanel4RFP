@@ -5,7 +5,6 @@ import sys
 import platform
 import os
 import keyboard
-import random
 import serial
 import config
 import time

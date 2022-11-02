@@ -4,9 +4,11 @@
 sudo apt update
 sudo apt full-upgrade
 sudo apt install python3
-sudo pip install serial
+sudo apt install git
 sudo pip install keyboard
-sudo pip install serial
 sudo pip install pyserial
-sudo pip install pybluez
+sudo mkdir ~/pyControlPanel4RFP/
+cd ~/pyControlPanel4RFP/
+git clone https://github.com/UBER-BLACK/pyControlPanel4RFP/
 ```
+####

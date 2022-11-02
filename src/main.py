@@ -1,67 +1,59 @@
 #####----------------------
 ##### SETUP
 #####----------------------
-import sys
-import platform
-import os
-import keyboard
-import serial
-import config
-import time
+import sys, platform, os, keyboard, serial, config, time
 
 
-system = platform.system()
-
-
+system              = platform.system()
 key_move_forward    = config.keyboard_move_forward
 key_move_left       = config.keyboard_move_left
 key_move_right      = config.keyboard_move_right
 key_move_back       = config.keyboard_move_back
-
 key_hit             = config.keyboard_hit
 key_reverse_roller  = config.keyboard_reverse_roller
-
-
+bt_speed            = config.bluetooth_speed
 bt_port             = config.bluetooth_port
 bt_mac              = config.bluetooth_mac
-
-
-set_keyboard_work   = config.settings_keyboard_work
+set_hit_stretch     = config.settings_hit_stretch
 set_hit_power       = config.settings_hit_power
 set_roller_power    = config.settings_roller_power
 #####----------------------
 ##### MAIN
 #####----------------------
 if system == "Linux":
-    os.system("sudo rfcomm unbind 0")
+    os.system(f"rfcomm bind 0 {bt_mac}")
     time.sleep(1)
-    os.system(f"sudo rfcomm bind 0 {bt_mac}")
-    bluetooth = serial.Serial("/dev/rfcomm0", 115200)
+    bluetooth = serial.Serial("/dev/rfcomm0",bt_speed)
+    bluetooth.close
+    bluetooth.open
     bluetooth.reset_input_buffer()
+else:
+    print(f"You OS ({system}) is not support")
+    sys.exit()
+def keyboard_data():
+    move_y      = 0
+    move_x      = 0
+    hit_x       = set_hit_stretch
+    roller_x    = set_roller_power
+    #MOVE
+    if keyboard.is_pressed(f"{key_move_forward}"):      move_y= 255
+    elif keyboard.is_pressed(f"{key_move_back}"):       move_y=-255
+    if keyboard.is_pressed(f"{key_move_left}"):         move_x=-255
+    elif keyboard.is_pressed(f"{key_move_right}"):      move_x= 255
+    #HIT
+    if keyboard.is_pressed(f"{key_hit}"):               hit_x=set_hit_power
+    elif keyboard.is_pressed(f"{key_reverse_roller}"):  roller_x=-255
+    time.sleep(0.05)
+    return(move_y,move_x,hit_x,roller_x)
+
 while True:
-    move_y              = 0
-    move_x              = 0
-    hit                 = 0
-    roller              = set_roller_power
-    if keyboard.is_pressed(f"ctrl + esc"):               #KEY-STOP
+    if keyboard.is_pressed(f"ctrl + 1"):               #KEY-STOP
         print("STOP")
         bluetooth.close()
+        os.system("rfcomm unbind 0")
         sys.exit()
-    if set_keyboard_work == True:                                     #KEYBOARD
-        #MOVE
-        if keyboard.is_pressed(f"{key_move_forward}"):      #KEY-FORWARD
-            move_y= 255
-        elif keyboard.is_pressed(f"{key_move_back}"):       #KEY-BACK
-            move_y=-255
-        if keyboard.is_pressed(f"{key_move_left}"):         #KEY-LEFT
-            move_x=-255
-        elif keyboard.is_pressed(f"{key_move_right}"):      #KEY-RIGHT
-            move_x= 255
-        #HIT
-        if keyboard.is_pressed(f"{key_hit}"):               #KEY-HIT
-            hit=set_hit_power
-            roller=-255
-        elif keyboard.is_pressed(f"{key_reverse_roller}"):  #KEY-REVERSE ROLLER
-            roller=-255
-    
+    send_data = f"{keyboard_data()}\n"
+    bluetooth.open
+    bluetooth.write(send_data.encode())
+    bluetooth.close
     time.sleep(0.05)

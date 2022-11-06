@@ -1,11 +1,11 @@
 #           KEYBOARD
-#move
-keyboard_work          = True                   #True   False
+#ENGINE CONTROL
+keyboard_work           = True                  #True   False
 keyboard_move_forward   = "w"                   #Button
 keyboard_move_left      = "a"                   #Button
 keyboard_move_right     = "d"                   #Button
 keyboard_move_back      = "s"                   #Button
-#hit
+#WEAPON CONTROL
 keyboard_reverse_roller = "r"                   #Button
 keyboard_hit            = " "                   #Button
 
@@ -18,6 +18,8 @@ bluetooth_port          = "COM?"                #For Windows users
 
 
 #           SETTINGS
+settings_debug_mode     = True                  #True   False
+settings_cli_mode       = False                 #True   False
 settings_move_y_balance = 0                     #-255   255
 settings_move_x_balance = 0                     #-255   255
 settings_roller_power   = 255                   #0      255

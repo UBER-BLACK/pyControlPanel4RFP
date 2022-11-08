@@ -33,15 +33,15 @@ def keyboard_data():
     rev_roller_x        = config.settings_roller_power
     hit_power           = config.settings_hit_power
     #                   ENGINE CONTROL
-    if keyboard.is_pressed(f"{key_move_forward}"):      move_y= 255         #FORWARD
-    elif keyboard.is_pressed(f"{key_move_back}"):       move_y=-255         #BACK
-    if keyboard.is_pressed(f"{key_move_left}"):         move_x=-255         #LEFT
-    elif keyboard.is_pressed(f"{key_move_right}"):      move_x= 255         #RIGHT
+    if keyboard.is_pressed(f"{key_move_forward}"):      move_y= 1024        #FORWARD
+    elif keyboard.is_pressed(f"{key_move_back}"):       move_y= 0           #BACK
+    if keyboard.is_pressed(f"{key_move_left}"):         move_x= 0           #LEFT
+    elif keyboard.is_pressed(f"{key_move_right}"):      move_x= 1024        #RIGHT
     #                   WEAPON CONTROL
-    if keyboard.is_pressed(f"{key_hit}"):               hit_x=hit_power     #HIT
-    elif keyboard.is_pressed(f"{key_reverse_roller}"):  rev_roller_x=-255   #REV-ROLLER
+    if keyboard.is_pressed(f"{key_hit}"):               hit_x=  1024         #HIT
+    elif keyboard.is_pressed(f"{key_reverse_roller}"):  rev_roller_x=-1024   #REV-ROLLER
     time.sleep(0.02)
-    int_keyboard_data = move_y,move_x,hit_x,rev_roller_x
+    int_keyboard_data = [0,move_y,move_x,hit_x,rev_roller_x]
     debug(True,"Keyboard_data",int_keyboard_data)
     return(int_keyboard_data)
 def bluetooth_connect():
@@ -54,10 +54,8 @@ def bluetooth_connect():
         time.sleep(1)
         global bluetooth
         bluetooth = serial.Serial("/dev/rfcomm0",bt_speed)
-        bluetooth.close
-        bluetooth.open
-        bluetooth.reset_input_buffer()
-        time.sleep(2)
+        bluetooth.reset_input_buffer()        
+        time.sleep(0.25)
         debug(True,"bluetooth","Connect")
         return(True)
     else:
@@ -77,8 +75,14 @@ def bluetooth_disconnect():
     else:
         debug(False,"bluetooth","Disconect")
         return(False)
-def bluetooth_senddata(send_data):
-    pass
+def bluetooth_senddata(data):
+    txs = ""
+    for val in data:
+        txs += str(val)
+        txs += ','
+    txs = txs[:-1]
+    txs += ';'
+    bluetooth.write(txs.encode())
     debug(True,"bluetooth","Send")
 def mini_subsustem(): 
     if keyboard.is_pressed(f"ctrl + q"):               
@@ -88,6 +92,8 @@ def mini_subsustem():
         print("RECONNECT")
         bluetooth_disconnect()
         bluetooth_connect()  
+bluetooth_connect() #AUTO-CONNECT
+bluetooth_disconnect() #AUTO-DISCONNECT
 bluetooth_connect() #AUTO-CONNECT
 while True:
     mini_subsustem()
